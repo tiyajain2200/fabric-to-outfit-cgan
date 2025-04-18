@@ -2,11 +2,18 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 import os
+import tensorflow as tf
 
-def load_and_preprocess_image(path, img_size=(256, 256)):
-    image = Image.open(path).convert('RGB')
-    image = image.resize(img_size)
-    return np.array(image, dtype=np.float32) / 255.0  # Normalize to [0, 1]
+def load_and_preprocess_image(path, img_size=(256, 256), augment=True):
+    image = Image.open(path).convert('RGB').resize(img_size)
+    image = (np.array(image, dtype=np.float32) / 127.5) - 1  # Normalize to [-1, 1]
+
+    if augment:
+        image = tf.image.random_flip_left_right(image)
+        image = tf.image.random_brightness(image, 0.1)
+        image = tf.image.random_contrast(image, 0.8, 1.2)
+
+    return image
 
 def load_data(csv_path='data/fabfashion.csv', img_size=(256, 256)):
     df = pd.read_csv(csv_path)
@@ -15,7 +22,6 @@ def load_data(csv_path='data/fabfashion.csv', img_size=(256, 256)):
     outfits = []
 
     for _, row in df.iterrows():
-        # Paths relative to the project root, since data/ is the base folder
         fabric_path = os.path.join('data', row['FabricPath'])
         outfit_path = os.path.join('data', row['OutfitPath'])
 
@@ -26,3 +32,4 @@ def load_data(csv_path='data/fabfashion.csv', img_size=(256, 256)):
             print(f"❌ Missing file: {fabric_path} or {outfit_path}")
 
     return np.array(fabrics), np.array(outfits)
+
