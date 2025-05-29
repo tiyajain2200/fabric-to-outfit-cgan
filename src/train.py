@@ -55,10 +55,10 @@ def train(fabrics, outfits, epochs=100):
             if step % 10 == 0:
                 print(f"Step {step}: Gen Loss = {gen_loss:.4f}, Disc Loss = {disc_loss:.4f}")
 
-            checkpoint_dir = "checkpoints"
-            os.makedirs(checkpoint_dir, exist_ok=True)
-            generator.save(os.path.join(checkpoint_dir, f"generator_epoch_{epoch+1}.h5"))
-            discriminator.save(os.path.join(checkpoint_dir, f"discriminator_epoch_{epoch+1}.h5"))
-            print(f"✅ Models saved for epoch {epoch+1}")
+    checkpoint_dir = "checkpoints"
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    generator.save(os.path.join(checkpoint_dir, f"generator_epoch_{epoch+1}.h5"))
+    discriminator.save(os.path.join(checkpoint_dir, f"discriminator_epoch_{epoch+1}.h5"))
+    print(f"✅ Models saved for epoch {epoch+1}")
 
 
