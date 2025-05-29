@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import os
 
-def predict(fabric_image, model_path='checkpoints/generator.h5', output_path='images/generated/output.png'):
+def predict(fabric_image, model_path='checkpoints/generator_epoch_10.h5', output_path='images/generated/output.png'):
     # Load the trained generator model
     model = tf.keras.models.load_model(model_path, compile=False)
 
