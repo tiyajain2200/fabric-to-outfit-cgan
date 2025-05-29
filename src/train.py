@@ -3,7 +3,7 @@ from src.models import build_generator, build_discriminator
 import os
 
 loss_obj = tf.keras.losses.BinaryCrossentropy(from_logits=True)
-LAMBDA = 100
+LAMBDA = 10
 
 vgg = tf.keras.applications.VGG19(include_top=False, weights='imagenet')
 vgg.trainable = False
