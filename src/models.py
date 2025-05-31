@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 
 def build_generator():
-    inputs = layers.Input(shape=[512, 512, 3])
+    inputs = layers.Input(shape=[256, 256, 3])
 
     down_stack = [
         downsample(64, 4, apply_batchnorm=False),
@@ -47,8 +47,8 @@ def build_generator():
 def build_discriminator():
     initializer = tf.random_normal_initializer(0., 0.02)
 
-    inp = layers.Input(shape=[512, 512, 3], name='input_image')
-    tar = layers.Input(shape=[512, 512, 3], name='target_image')
+    inp = layers.Input(shape=[256, 256, 3], name='input_image')
+    tar = layers.Input(shape=[256, 256, 3], name='target_image')
 
     x = layers.concatenate([inp, tar])
 
